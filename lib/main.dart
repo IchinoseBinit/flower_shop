@@ -1,10 +1,12 @@
-import '/screens/splash_screen.dart';
+import 'package:flower_shop/providers/category_provider.dart';
+import 'package:flower_shop/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
 import '/providers/login_provider.dart';
 import '/providers/register_provider.dart';
-import 'package:provider/provider.dart';
-import '/screens/login_screen.dart';
+import '/screens/splash_screen.dart';
 import '/theme/theme_data.dart';
 
 void main() {
@@ -29,9 +31,15 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => LoginProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => ProductsProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => CategoryProvider(),
+          ),
         ],
         child: MaterialApp(
-          title: 'E-Medic',
+          title: 'Little Garden',
           theme: lightTheme(context),
           home: const SplashScreen(),
         ),

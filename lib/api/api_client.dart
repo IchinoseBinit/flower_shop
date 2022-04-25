@@ -8,9 +8,8 @@ import '/utils/request_type.dart';
 // import '/utils/request_type_exception.dart';
 import '/utils/string_to_url.dart';
 
-String token = '';
-
 class APIClient {
+  static String token = '';
   final Client _client;
 
   APIClient(this._client);
@@ -29,15 +28,8 @@ class APIClient {
 
     Map<String, String> headingWithToken = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer gAccessToken',
+      'Authorization': 'Bearer $token',
     };
-
-    // if (EnvironmentConfig.isProd != "true" && UtilityProvider.url.isNotEmpty) {
-    //   String split = url.split("8070")[1];
-    //   String completeUrl = UtilityProvider.url;
-    //   url = "http://$completeUrl:8070$split";
-    // }
-    log(url);
     switch (requestType) {
       case RequestType.get:
         return _client.get(
@@ -63,6 +55,12 @@ class APIClient {
         );
       case RequestType.postWithToken:
         return _client.post(
+          stringToUrl(url),
+          body: parameter,
+          headers: headingWithToken,
+        );
+      case RequestType.putWithToken:
+        return _client.put(
           stringToUrl(url),
           body: parameter,
           headers: headingWithToken,

@@ -3,6 +3,7 @@ enum RequestType {
   getWithToken,
   post,
   postWithToken,
+  putWithToken,
   postWithHeaders,
   delete
 }

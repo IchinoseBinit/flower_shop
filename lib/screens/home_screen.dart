@@ -1,7 +1,11 @@
-import 'dart:convert';
-
+import 'package:flower_shop/providers/category_provider.dart';
+import 'package:flower_shop/providers/login_provider.dart';
+import 'package:flower_shop/providers/product_provider.dart';
+import 'package:flower_shop/widgets/caregory_card.dart';
+import 'package:flower_shop/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '/utils/navigate.dart';
 import '/widgets/curved_body_widget.dart';
@@ -11,37 +15,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = null;
+    final data = Provider.of<LoginProvider>(context, listen: false).user;
+    final categoryFuture =
+        Provider.of<CategoryProvider>(context, listen: false).fetchCategories();
+    final latestProductsFuture =
+        Provider.of<ProductsProvider>(context, listen: false)
+            .fetchLatestProducts();
+
+    final productsFuture = Provider.of<ProductsProvider>(context, listen: false)
+        .fetchLatestProducts();
     // final future =
     //     Provider.of<RoomProvider>(context, listen: false).fetchRoom(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Welcome Home!"),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              // final roomName =
-              //     await GeneralBottomSheet().customBottomSheet(context);
-              // // print(roomName);
-              // if (roomName != null) {
-              //   try {
-              //     GeneralAlertDialog().customLoadingDialog(context);
-              //     await Provider.of<RoomProvider>(context, listen: false)
-              //         .addRoom(context, roomName);
-              //     Navigator.pop(context);
-              //     Navigator.pop(context);
-              //   } catch (ex) {
-              //     Navigator.pop(context);
-              //     GeneralAlertDialog()
-              //         .customAlertDialog(context, ex.toString());
-              //   }
-              // }
-            },
-            icon: const Icon(
-              Icons.add_outlined,
-            ),
-          )
-        ],
       ),
       drawer: Drawer(
           child: Column(
@@ -50,28 +37,9 @@ class HomeScreen extends StatelessWidget {
           //   // data.
           //   return
           UserAccountsDrawerHeader(
-            accountName: Text(data?.user?.name ?? "No Name"),
+            accountName: Text(data?.user.username ?? "No Name"),
             accountEmail: Text(
-              data?.user?.email ?? "No Email",
-            ),
-            currentAccountPicture: Hero(
-              tag: "image-url",
-              child: SizedBox(
-                height: 128.h,
-                width: 128.h,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(64.r),
-                  child: data?.user?.image == null
-                      ? Image.network(
-                          "image",
-                          fit: BoxFit.cover,
-                        )
-                      : Image.memory(
-                          base64Decode(data.user.image!),
-                          fit: BoxFit.cover,
-                        ),
-                ),
-              ),
+              data?.user.email ?? "No Email",
             ),
           ),
 
@@ -100,7 +68,124 @@ class HomeScreen extends StatelessWidget {
       body: CurvedBodyWidget(
           widget: SingleChildScrollView(
         child: Column(
-          children: [],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Categories",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              height: 150,
+              child: FutureBuilder(
+                future: categoryFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Consumer<CategoryProvider>(
+                    builder: (context, value, child) =>
+                        value.listOfcategories.isEmpty
+                            ? const SizedBox.shrink()
+                            : ListView.builder(
+                                itemBuilder: (context, index) => CategoryCard(
+                                  category: value.listOfcategories[index],
+                                ),
+                                itemCount: value.listOfcategories.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                primary: false,
+                              ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              "Latest Products",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              height: 150,
+              child: FutureBuilder(
+                future: latestProductsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Consumer<ProductsProvider>(
+                    builder: ((context, value, child) =>
+                        value.listOfLatestProducts.isEmpty
+                            ? const SizedBox.shrink()
+                            : ListView.builder(
+                                itemBuilder: (context, index) => ProductCard(
+                                  product: value.listOfLatestProducts[index],
+                                ),
+                                itemCount: value.listOfLatestProducts.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                primary: false,
+                              )),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              "Products",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            FutureBuilder(
+              future: productsFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return Consumer<ProductsProvider>(
+                  builder: ((context, value, child) =>
+                      value.listOfLatestProducts.isEmpty
+                          ? const SizedBox.shrink()
+                          : GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.8,
+                              ),
+                              itemBuilder: (context, index) => ProductCard(
+                                product: value.listOfLatestProducts[index],
+                              ),
+                              itemCount: value.listOfLatestProducts.length,
+                              shrinkWrap: true,
+                              primary: false,
+                            )),
+                );
+              },
+            ),
+          ],
         ),
       )
           // FutureBuilder(

@@ -8,8 +8,8 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   navigateToLogin(BuildContext context) {
-    Future.delayed(
-        const Duration(seconds: 5), navigateUntil(context, LoginScreen()));
+    Future.delayed(const Duration(seconds: 5))
+        .then((_) => navigateUntil(context, LoginScreen()));
   }
 
   @override

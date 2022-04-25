@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/providers/login_provider.dart';
@@ -15,7 +17,7 @@ class LoginScreen extends StatelessWidget {
 
   // final bool canCheckBioMetric;
 
-  final emailController = TextEditingController();
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
@@ -43,12 +45,13 @@ class LoginScreen extends StatelessWidget {
                   height: 8.h,
                 ),
                 GeneralTextField(
-                  title: "Email",
-                  controller: emailController,
-                  textInputType: TextInputType.emailAddress,
+                  title: "Username",
+                  controller: usernameController,
+                  textInputType: TextInputType.name,
                   textInputAction: TextInputAction.next,
-                  validate: (value) => ValidationMixin().validateEmail(
+                  validate: (value) => ValidationMixin().validate(
                     value!,
+                    "Username",
                   ),
                   onFieldSubmitted: (_) {},
                 ),
@@ -111,7 +114,7 @@ class LoginScreen extends StatelessWidget {
       }
       dialog.customLoadingDialog(context);
       await Provider.of<LoginProvider>(context, listen: false).loginUser(
-          username: emailController.text, password: passwordController.text);
+          username: usernameController.text, password: passwordController.text);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

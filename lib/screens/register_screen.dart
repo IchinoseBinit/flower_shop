@@ -11,8 +11,9 @@ class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
 
   final emailController = TextEditingController();
-  final phoneController = TextEditingController();
-  final nameController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final usernameController = TextEditingController();
+  final addressController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -41,11 +42,25 @@ class RegisterScreen extends StatelessWidget {
               ),
 
               GeneralTextField(
-                title: "Name",
-                controller: nameController,
+                title: "Full Name",
+                controller: fullnameController,
                 textInputType: TextInputType.name,
                 textInputAction: TextInputAction.next,
-                validate: (value) => ValidationMixin().validate(value!, "Name"),
+                validate: (value) =>
+                    ValidationMixin().validate(value!, "Full Name"),
+                onFieldSubmitted: (_) {},
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+
+              GeneralTextField(
+                title: "Username",
+                controller: usernameController,
+                textInputType: TextInputType.name,
+                textInputAction: TextInputAction.next,
+                validate: (value) =>
+                    ValidationMixin().validate(value!, "Username"),
                 onFieldSubmitted: (_) {},
               ),
               SizedBox(
@@ -63,11 +78,12 @@ class RegisterScreen extends StatelessWidget {
                 height: 16.h,
               ),
               GeneralTextField(
-                title: "Phone Number",
-                controller: phoneController,
-                textInputType: TextInputType.phone,
+                title: "Address",
+                controller: addressController,
+                textInputType: TextInputType.streetAddress,
                 textInputAction: TextInputAction.next,
-                validate: (value) => ValidationMixin().validateMobile(value!),
+                validate: (value) =>
+                    ValidationMixin().validate(value!, "Address"),
                 onFieldSubmitted: (_) {},
               ),
               SizedBox(
@@ -102,7 +118,7 @@ class RegisterScreen extends StatelessWidget {
                 onPressed: () async {
                   await submit(context);
                 },
-                child: Text("Register"),
+                child: const Text("Register"),
               ),
               SizedBox(height: 16.h),
 
@@ -136,8 +152,10 @@ class RegisterScreen extends StatelessWidget {
             .registerUser(
           context,
           email: emailController.text,
-          username: nameController.text,
+          username: usernameController.text,
           password: passwordController.text,
+          address: addressController.text,
+          fullName: fullnameController.text,
         );
         Navigator.pop(context);
         Navigator.pop(context);
