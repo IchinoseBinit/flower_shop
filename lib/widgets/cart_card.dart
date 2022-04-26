@@ -1,8 +1,8 @@
 import 'package:flower_shop/models/product.dart';
 import 'package:flower_shop/providers/cart_provider.dart';
+import 'package:flower_shop/screens/payment_screen.dart';
 import 'package:flower_shop/utils/custom_toast_animation.dart';
 import 'package:flower_shop/utils/navigate.dart';
-import 'package:flower_shop/utils/show_toast.dart';
 import 'package:flower_shop/widgets/general_alert_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +111,18 @@ class CartCard extends StatelessWidget {
                 return const CustomAnimatedToast();
               },
             );
+            navigate(context,
+                Consumer<CartProvider>(builder: (context, value, _) {
+              return PaymentScreen(
+                price: value.getProductById(product.id).selectedQuantity *
+                    product.price.toInt(),
+                productName: product.productName,
+                productid: product.id,
+                quantity: value.getProductById(product.id).selectedQuantity,
+              );
+            }));
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.shopping_cart_checkout_outlined,
           ),
         )

@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.0.2
   fluttertoast: ^8.0.9
   intl: ^0.17.0
+  khalti_flutter: ^2.0.2
 
 dev_dependencies:
   flutter_test:
