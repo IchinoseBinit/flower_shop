@@ -1,6 +1,8 @@
 import 'package:flower_shop/providers/category_provider.dart';
 import 'package:flower_shop/providers/login_provider.dart';
 import 'package:flower_shop/providers/product_provider.dart';
+import 'package:flower_shop/screens/cart_screen.dart';
+import 'package:flower_shop/screens/popular_products.dart';
 import 'package:flower_shop/widgets/caregory_card.dart';
 import 'package:flower_shop/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -43,23 +45,19 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          // buildListTile(
-          //   context,
-          //   label: "List of Medicines",
-          //   widget: ListOfMedicines(
-          //     title: "List of Medicines",
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 8.h,
-          // ),
-          // buildListTile(
-          //   context,
-          //   label: "Surgical Items",
-          //   widget: SurgicalItems(
-          //     title: "Surgical Items",
-          //   ),
-          // ),
+          buildListTile(
+            context,
+            label: "Popular Products",
+            widget: const PopularProducts(),
+          ),
+          SizedBox(
+            height: 8.h,
+          ),
+          buildListTile(
+            context,
+            label: "My Cart",
+            widget: const CartScreen(),
+          ),
           SizedBox(
             height: 8.h,
           ),
@@ -187,64 +185,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      )
-          // FutureBuilder(
-          //     future: future,
-          //     builder: (context, snapshot) {
-          //       if (snapshot.connectionState == ConnectionState.waiting) {
-          //         return const Center(
-          //           child: CircularProgressIndicator(),
-          //         );
-          //       }
-          //       final listOfRoom = Provider.of<RoomProvider>(
-          //         context,
-          //       ).listOfRoom;
-          //       return listOfRoom.isEmpty
-          //           ? const Center(
-          //               child: Text("You do not have any rooms!"),
-          //             )
-          //           : SingleChildScrollView(
-          //               child: Column(
-          //                 crossAxisAlignment: CrossAxisAlignment.start,
-          //                 children: [
-          //                   Text(
-          //                     "Your Rooms",
-          //                     style: Theme.of(context).textTheme.headline6,
-          //                   ),
-          //                   SizedBox(
-          //                     height: SizeConfig.height,
-          //                   ),
-          //                   GridView.builder(
-          //                     itemCount: listOfRoom.length,
-          //                     gridDelegate:
-          //                         SliverGridDelegateWithFixedCrossAxisCount(
-          //                       crossAxisCount: 3,
-          //                       childAspectRatio: 2,
-          //                       mainAxisSpacing: SizeConfig.height,
-          //                       crossAxisSpacing: SizeConfig.width * 4,
-          //                     ),
-          //                     itemBuilder: (context, index) {
-          //                       return InkWell(
-          //                         onTap: () => navigate(context,
-          //                             RoomScreen(room: listOfRoom[index])),
-          //                         child: Card(
-          //                           color: Colors.red.shade200,
-          //                           child: Center(
-          //                             child: Text(
-          //                               listOfRoom[index].name,
-          //                             ),
-          //                           ),
-          //                         ),
-          //                       );
-          //                     },
-          //                     shrinkWrap: true,
-          //                   )
-          //                 ],
-          //               ),
-          //             );
-          //     }),
-
-          ),
+      )),
     );
   }
 

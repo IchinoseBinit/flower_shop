@@ -9,12 +9,26 @@ class ProductsProvider extends ChangeNotifier {
   List<Product> listOfProducts = [];
   List<Product> listOfLatestProducts = [];
   List<Product> listOfPopularProducts = [];
+  List<Product> listOfProductsByCategory = [];
 
   fetchProducts() async {
     try {
       if (listOfProducts.isNotEmpty) return;
       final response = await APICall().getRequestWithToken(productsUrl);
+      log(response);
       listOfProducts = productFromJson(response);
+    } catch (ex) {
+      log(ex.toString());
+      rethrow;
+    }
+  }
+
+  fetchProductsByCategory(int id) async {
+    try {
+      final response = await APICall()
+          .getRequestWithToken(categoriesProductsUrl + id.toString());
+      log(response);
+      listOfProductsByCategory = productFromJson(response);
     } catch (ex) {
       log(ex.toString());
       rethrow;

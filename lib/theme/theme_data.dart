@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightTheme(BuildContext context) {
   return ThemeData(
-    primaryColor: Colors.green,
-    scaffoldBackgroundColor: Colors.green,
-    iconTheme: const IconThemeData(color: Colors.blue),
+    primaryColor: Colors.orange,
+    scaffoldBackgroundColor: Colors.orange,
+    iconTheme: const IconThemeData(color: Colors.orangeAccent),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.orange,
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontSize: 16.sp,
@@ -19,22 +19,21 @@ ThemeData lightTheme(BuildContext context) {
       const TextTheme(
         headline5: TextStyle(
           color: Colors.black,
-          fontFamily: "Open Sans",
           fontWeight: FontWeight.w600,
         ),
         headline2: TextStyle(color: Colors.black),
-        bodyText1: TextStyle(color: Colors.black, fontFamily: "Open Sans"),
+        bodyText1: TextStyle(
+          color: Colors.black,
+        ),
         bodyText2: TextStyle(color: Colors.black),
         subtitle1: TextStyle(
           color: Colors.black,
-          fontFamily: "Open Sans",
         ),
         subtitle2: TextStyle(
           color: Colors.black,
         ),
         caption: TextStyle(
           color: Colors.black,
-          fontFamily: "Open Sans",
         ),
       ),
     ),

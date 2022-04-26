@@ -1,4 +1,6 @@
 import 'package:flower_shop/models/product.dart';
+import 'package:flower_shop/screens/product_details_screen.dart';
+import 'package:flower_shop/utils/navigate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,11 +22,10 @@ class ProductCard extends StatelessWidget {
     return SizedBox(
       width: 150.w,
       child: GestureDetector(
-        onTap: () {},
-        // => navigate(
-        //   context,
-        //   ProductDetailsScreen(product: product),
-        // ),
+        onTap: () => navigate(
+          context,
+          ProductDetailsScreen(product: product),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,12 +39,9 @@ class ProductCard extends StatelessWidget {
                   color: Colors.grey.withOpacity(.2),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Hero(
-                  tag: '${product.id.toString()} $category',
-                  child: Image.network(
-                    product.productImage,
-                    fit: BoxFit.contain,
-                  ),
+                child: Image.network(
+                  product.productImage,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

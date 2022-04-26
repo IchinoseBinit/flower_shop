@@ -13,12 +13,7 @@ class CurvedBodyWidget extends StatelessWidget {
     return Container(
       height: 700.h,
       width: 390.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(25.r),
-        ),
-        color: Colors.white,
-      ),
+      color: Colors.white,
       padding: basePadding,
       child: widget,
     );

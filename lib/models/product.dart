@@ -20,6 +20,8 @@ class Product {
     required this.description,
     required this.isRecentlyAdded,
     required this.isPopular,
+    required this.price,
+    this.selectedQuantity = 0,
     required this.categoryId,
   });
 
@@ -29,6 +31,8 @@ class Product {
   final String description;
   final bool isRecentlyAdded;
   final bool isPopular;
+  final double price;
+  int selectedQuantity;
   final int categoryId;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -38,7 +42,9 @@ class Product {
         description: json["description"],
         isRecentlyAdded: json["is_recently_added"],
         isPopular: json["is_popular"],
+        price: double.parse(json["price"].toString()),
         categoryId: json["category_id"],
+        selectedQuantity: 1,
       );
 
   Map<String, dynamic> toJson() => {

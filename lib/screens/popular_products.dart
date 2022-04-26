@@ -33,7 +33,9 @@ class PopularProducts extends StatelessWidget {
                     return Consumer<ProductsProvider>(
                       builder: (context, value, child) =>
                           value.listOfPopularProducts.isEmpty
-                              ? const SizedBox.shrink()
+                              ? const Center(
+                                  child: Text("No Popular Products currently"),
+                                )
                               : GridView.builder(
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(

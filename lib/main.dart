@@ -1,3 +1,4 @@
+import 'package:flower_shop/providers/cart_provider.dart';
 import 'package:flower_shop/providers/category_provider.dart';
 import 'package:flower_shop/providers/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +38,15 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => CategoryProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => CartProvider(),
+          ),
         ],
         child: MaterialApp(
           title: 'Little Garden',
           theme: lightTheme(context),
           home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
         ),
       ),
     );
