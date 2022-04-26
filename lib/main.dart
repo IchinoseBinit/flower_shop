@@ -1,6 +1,7 @@
 import 'package:flower_shop/constants/constants.dart';
 import 'package:flower_shop/providers/cart_provider.dart';
 import 'package:flower_shop/providers/category_provider.dart';
+import 'package:flower_shop/providers/order_provider.dart';
 import 'package:flower_shop/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => CartProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => OrderProvider(),
             ),
           ],
           child: MaterialApp(

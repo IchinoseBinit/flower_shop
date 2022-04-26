@@ -1,4 +1,6 @@
 import 'package:flower_shop/models/category.dart';
+import 'package:flower_shop/screens/products_by_categories_screen.dart';
+import 'package:flower_shop/utils/navigate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,11 +21,12 @@ class CategoryCard extends StatelessWidget {
     return SizedBox(
       width: 150.w,
       child: GestureDetector(
-        onTap: () {},
-        // => navigate(
-        //   context,
-        //   ProductDetailsScreen(product: product),
-        // ),
+        onTap: () => navigate(
+          context,
+          ProductsByCategoriesScreen(
+            category: category,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

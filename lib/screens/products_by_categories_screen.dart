@@ -35,7 +35,7 @@ class ProductsByCategoriesScreen extends StatelessWidget {
                     }
                     return Consumer<ProductsProvider>(
                       builder: (context, value, child) => value
-                              .listOfPopularProducts.isEmpty
+                              .listOfProductsByCategory.isEmpty
                           ? Center(
                               child: Text(
                                   "No Products in the ${category.categoryName} category currently"),

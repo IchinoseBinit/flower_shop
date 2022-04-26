@@ -1,5 +1,6 @@
 import 'package:flower_shop/api/api_call.dart';
 import 'package:flower_shop/constants/urls.dart';
+import 'package:flower_shop/models/order.dart';
 import 'package:flower_shop/models/product.dart';
 import 'package:flower_shop/providers/login_provider.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,13 @@ class CartProvider extends ChangeNotifier {
         "user_id": id,
         "date": DateFormat("yyy-MM-dd").format(DateTime.now()),
         "quantity": product.selectedQuantity,
-        "status": false,
+        "status": true,
         "total_amount": product.selectedQuantity * product.price,
         "product": product.id
       };
 
-      await APICall().postRequestWithoutToken(orderListUrl, map);
-      notifyListeners();
+      return orderFromJson(
+          await APICall().postRequestWithoutToken("$orderListUrl$id", map));
     } catch (ex) {
       rethrow;
     }

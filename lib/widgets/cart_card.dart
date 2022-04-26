@@ -18,11 +18,9 @@ class CartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              6,
-            ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(
+            15,
           ),
           child: Image.network(
             product.productImage,
@@ -46,15 +44,25 @@ class CartCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Provider.of<CartProvider>(context, listen: false)
-                        .updateQuantity(product.id);
-                  },
-                  icon: const Icon(
-                    Icons.add_outlined,
-                    size: 16,
+                Container(
+                  width: 25.w,
+                  height: 25.w,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(
+                      50,
+                    ),
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      Provider.of<CartProvider>(context, listen: false)
+                          .updateQuantity(product.id);
+                    },
+                    icon: const Icon(
+                      Icons.add_outlined,
+                      size: 24,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -66,18 +74,31 @@ class CartCard extends StatelessWidget {
                       .selectedQuantity
                       .toString());
                 }),
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    Provider.of<CartProvider>(context, listen: false)
-                        .updateQuantity(
-                      product.id,
-                      isAdded: false,
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.remove_outlined,
-                    size: 16,
+                SizedBox(
+                  width: 5.w,
+                ),
+                Container(
+                  width: 25.w,
+                  height: 25.w,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(
+                      50,
+                    ),
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      Provider.of<CartProvider>(context, listen: false)
+                          .updateQuantity(
+                        product.id,
+                        isAdded: false,
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.remove_outlined,
+                      size: 16,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -95,7 +116,9 @@ class CartCard extends StatelessWidget {
         IconButton(
           onPressed: () async {
             GeneralAlertDialog().customLoadingDialog(context);
-            await Provider.of<CartProvider>(context, listen: false).postOrder(
+            final order =
+                await Provider.of<CartProvider>(context, listen: false)
+                    .postOrder(
               context,
               product.id,
             );
@@ -117,8 +140,7 @@ class CartCard extends StatelessWidget {
                 price: value.getProductById(product.id).selectedQuantity *
                     product.price.toInt(),
                 productName: product.productName,
-                productid: product.id,
-                quantity: value.getProductById(product.id).selectedQuantity,
+                order: order,
               );
             }));
           },

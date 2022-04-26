@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flower_shop/models/order.dart';
 import 'package:flower_shop/screens/home_screen.dart';
 import 'package:flower_shop/utils/navigate.dart';
 import 'package:flower_shop/widgets/curved_body_widget.dart';
@@ -22,20 +23,18 @@ import 'package:provider/provider.dart';
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({
     Key? key,
-    required this.price,
     required this.productName,
-    required this.productid,
-    required this.quantity,
+    required this.price,
+    required this.order,
   }) : super(key: key);
   final int price;
   final String productName;
-  final int productid;
-  final int quantity;
+  final Order order;
 
   makeConfig() {
     return PaymentConfig(
       amount: price * 100, // Amount should be in paisa
-      productIdentity: productid.toString(),
+      productIdentity: order.product.toString(),
       productName: productName,
       productUrl: 'https://www.khalti.com/#/bazaar',
       additionalData: {
@@ -57,7 +56,10 @@ class PaymentScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Your Bill Details"),
+              Text(
+                "Your Bill Details",
+                style: Theme.of(context).textTheme.headline6,
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -81,7 +83,7 @@ class PaymentScreen extends StatelessWidget {
                       ),
                       OneDetailDisplayer(
                         title: "Quantity",
-                        value: quantity.toString(),
+                        value: order.quantity.toString(),
                       ),
                       const SizedBox(
                         height: 16,
@@ -92,6 +94,12 @@ class PaymentScreen extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 16,
+                      ),
+                      OneDetailDisplayer(
+                        title: "Shipping Time",
+                        value: DateFormat("yyyy MMM dd hh:mm a").format(
+                          order.shippingTime,
+                        ),
                       ),
                     ],
                   ),

@@ -63,6 +63,12 @@ class ProductsProvider extends ChangeNotifier {
   // }
 
   Product getProductById(int id) {
-    return listOfProducts.firstWhere((element) => element.id == id);
+    final list = [
+      ...listOfLatestProducts,
+      ...listOfPopularProducts,
+      ...listOfProducts,
+      ...listOfProductsByCategory
+    ];
+    return list.firstWhere((element) => element.id == id);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flower_shop/providers/category_provider.dart';
 import 'package:flower_shop/providers/login_provider.dart';
 import 'package:flower_shop/providers/product_provider.dart';
 import 'package:flower_shop/screens/cart_screen.dart';
+import 'package:flower_shop/screens/order_screen.dart';
 import 'package:flower_shop/screens/popular_products.dart';
 import 'package:flower_shop/widgets/caregory_card.dart';
 import 'package:flower_shop/widgets/product_card.dart';
@@ -24,45 +25,48 @@ class HomeScreen extends StatelessWidget {
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchLatestProducts();
 
-    final productsFuture = Provider.of<ProductsProvider>(context, listen: false)
-        .fetchLatestProducts();
-    // final future =
-    //     Provider.of<RoomProvider>(context, listen: false).fetchRoom(context);
+    final productsFuture =
+        Provider.of<ProductsProvider>(context, listen: false).fetchProducts();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Welcome Home!"),
       ),
       drawer: Drawer(
-          child: Column(
-        children: [
-          // Consumer<UserProvider>(builder: (_, data, __) {
-          //   // data.
-          //   return
-          UserAccountsDrawerHeader(
-            accountName: Text(data?.user.username ?? "No Name"),
-            accountEmail: Text(
-              data?.user.email ?? "No Email",
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(data?.user.username ?? "No Name"),
+              accountEmail: Text(
+                data?.user.email ?? "No Email",
+              ),
             ),
-          ),
-
-          buildListTile(
-            context,
-            label: "Popular Products",
-            widget: const PopularProducts(),
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          buildListTile(
-            context,
-            label: "My Cart",
-            widget: const CartScreen(),
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-        ],
-      )),
+            buildListTile(
+              context,
+              label: "Popular Products",
+              widget: const PopularProducts(),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            buildListTile(
+              context,
+              label: "My Cart",
+              widget: const CartScreen(),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            buildListTile(
+              context,
+              label: "My Orders",
+              widget: const OrderScreen(),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+          ],
+        ),
+      ),
       body: CurvedBodyWidget(
           widget: SingleChildScrollView(
         child: Column(
@@ -91,10 +95,12 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, value, child) =>
                         value.listOfcategories.isEmpty
                             ? const SizedBox.shrink()
-                            : ListView.builder(
+                            : ListView.separated(
                                 itemBuilder: (context, index) => CategoryCard(
                                   category: value.listOfcategories[index],
                                 ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 20),
                                 itemCount: value.listOfcategories.length,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
@@ -165,7 +171,7 @@ class HomeScreen extends StatelessWidget {
                 }
                 return Consumer<ProductsProvider>(
                   builder: ((context, value, child) =>
-                      value.listOfLatestProducts.isEmpty
+                      value.listOfProducts.isEmpty
                           ? const SizedBox.shrink()
                           : GridView.builder(
                               gridDelegate:
@@ -174,9 +180,9 @@ class HomeScreen extends StatelessWidget {
                                 childAspectRatio: 0.8,
                               ),
                               itemBuilder: (context, index) => ProductCard(
-                                product: value.listOfLatestProducts[index],
+                                product: value.listOfProducts[index],
                               ),
-                              itemCount: value.listOfLatestProducts.length,
+                              itemCount: value.listOfProducts.length,
                               shrinkWrap: true,
                               primary: false,
                             )),
