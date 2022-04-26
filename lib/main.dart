@@ -3,6 +3,7 @@ import 'package:flower_shop/providers/cart_provider.dart';
 import 'package:flower_shop/providers/category_provider.dart';
 import 'package:flower_shop/providers/order_provider.dart';
 import 'package:flower_shop/providers/product_provider.dart';
+import 'package:flower_shop/providers/review_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => OrderProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => ReviewProvider(),
             ),
           ],
           child: MaterialApp(

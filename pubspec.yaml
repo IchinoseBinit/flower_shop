@@ -41,6 +41,7 @@ dependencies:
   fluttertoast: ^8.0.9
   intl: ^0.17.0
   khalti_flutter: ^2.0.2
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

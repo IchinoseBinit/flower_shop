@@ -16,6 +16,8 @@ const productsUrl = "$_productsCategories/products/";
 const latestProductsUrl = "${productsUrl}recently/";
 const popularProductsUrl = "${productsUrl}popular/";
 
+const reviewProductsUrl = "${productsUrl}reviews";
+
 const categoriesUrl = "$_productsCategories/categories/";
 const categoriesProductsUrl = "${categoriesUrl}products/";
 

@@ -1,5 +1,6 @@
 import 'package:flower_shop/models/product.dart';
 import 'package:flower_shop/providers/cart_provider.dart';
+import 'package:flower_shop/providers/review_provider.dart';
 import 'package:flower_shop/utils/show_toast.dart';
 import 'package:flower_shop/widgets/curved_body_widget.dart';
 import 'package:flower_shop/widgets/one_details_displayer.dart';
@@ -18,6 +19,8 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final future = Provider.of<ReviewProvider>(context, listen: false)
+        .fetchReviews(product.id);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Product"),
@@ -76,7 +79,52 @@ class ProductDetailsScreen extends StatelessWidget {
                     .addToCart(product);
                 showToast("Sucessfully added to cart");
               },
-              child: Text("Add to Cart"),
+              child: const Text("Add to Cart"),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              "Reviews",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            FutureBuilder(
+              future: future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                final data = Provider.of<ReviewProvider>(context, listen: false)
+                    .listOfReviews;
+                return ListView.builder(
+                  itemBuilder: ((context, index) => Card(
+                          child: ListTile(
+                        title: Text(data[index].comment),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.star_outlined,
+                              color: Colors.orange,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(data[index].ratings.toString())
+                          ],
+                        ),
+                      ))),
+                  itemCount: data.length,
+                  shrinkWrap: true,
+                  primary: false,
+                );
+              },
             )
           ],
           shrinkWrap: true,
