@@ -10,6 +10,7 @@ class ProductsProvider extends ChangeNotifier {
   List<Product> listOfLatestProducts = [];
   List<Product> listOfPopularProducts = [];
   List<Product> listOfProductsByCategory = [];
+  List<Product> searchedProducts = [];
 
   fetchProducts() async {
     try {
@@ -55,6 +56,30 @@ class ProductsProvider extends ChangeNotifier {
       log(ex.toString());
       rethrow;
     }
+  }
+
+  searchProducts(String name) {
+    searchedProducts.clear();
+    final list = [
+      ...listOfLatestProducts,
+      ...listOfPopularProducts,
+      ...listOfProducts,
+      ...listOfProductsByCategory
+    ];
+    searchedProducts = list
+        .where((element) =>
+            element.productName.toLowerCase().contains(name.toLowerCase()))
+        .toList();
+  }
+
+  filterProductByPrice(String name, double startValue, double endValue) {
+    searchProducts(name);
+    searchedProducts = searchedProducts
+        .where(
+          (element) => element.price >= startValue && element.price <= endValue,
+        )
+        .toList();
+    notifyListeners();
   }
 
   // updateQuantity(int id, int quantity) {

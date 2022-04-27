@@ -5,6 +5,7 @@ import 'package:flower_shop/utils/show_toast.dart';
 import 'package:flower_shop/widgets/curved_body_widget.dart';
 import 'package:flower_shop/widgets/one_details_displayer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -102,24 +103,29 @@ class ProductDetailsScreen extends StatelessWidget {
 
                 final data = Provider.of<ReviewProvider>(context, listen: false)
                     .listOfReviews;
-                return ListView.builder(
-                  itemBuilder: ((context, index) => Card(
-                          child: ListTile(
+                return ListView.separated(
+                  itemBuilder: ((context, index) => ListTile(
                         title: Text(data[index].comment),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              Icons.star_outlined,
-                              color: Colors.orange,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(data[index].ratings.toString())
-                          ],
+                        // subtitle: Row(
+                        //   mainAxisSize: MainAxisSize.min,
+                        //   children: [
+
+                        //   ],
+                        // ),
+                        trailing: RatingBarIndicator(
+                          rating: data[index].ratings.toDouble(),
+                          itemBuilder: (context, index) => const Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                          ),
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          direction: Axis.horizontal,
                         ),
-                      ))),
+                      )),
+                  separatorBuilder: (context, index) => const Divider(
+                    thickness: 1,
+                  ),
                   itemCount: data.length,
                   shrinkWrap: true,
                   primary: false,

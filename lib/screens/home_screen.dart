@@ -4,6 +4,7 @@ import 'package:flower_shop/providers/product_provider.dart';
 import 'package:flower_shop/screens/cart_screen.dart';
 import 'package:flower_shop/screens/order_screen.dart';
 import 'package:flower_shop/screens/popular_products.dart';
+import 'package:flower_shop/screens/search_list/search_screen.dart';
 import 'package:flower_shop/widgets/caregory_card.dart';
 import 'package:flower_shop/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Welcome Home!"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              navigate(context, const SearchScreen());
+            },
+            icon: const Icon(
+              Icons.search_outlined,
+            ),
+          ),
+        ],
       ),
       drawer: Drawer(
         child: Column(
