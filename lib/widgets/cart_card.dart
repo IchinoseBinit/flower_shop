@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_shop/models/product.dart';
 import 'package:flower_shop/providers/cart_provider.dart';
 import 'package:flower_shop/screens/payment_screen.dart';
@@ -22,13 +23,13 @@ class CartCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             15,
           ),
-          child: Image.network(
-            product.productImage,
+          child: CachedNetworkImage(
+            imageUrl: product.productImage,
             height: 80.h,
             width: 120.w,
-            errorBuilder: ((context, error, stackTrace) => const Icon(
-                  Icons.error_outlined,
-                )),
+            errorWidget: (context, error, stackTrace) => const Icon(
+              Icons.error_outlined,
+            ),
           ),
         ),
         SizedBox(
@@ -127,11 +128,13 @@ class CartCard extends StatelessWidget {
               barrierColor: Colors.grey.withOpacity(0.2),
               context: context,
               builder: (context) {
-                Future.delayed(Duration(milliseconds: 2100), () {
+                Future.delayed(const Duration(milliseconds: 2100), () {
                   Navigator.of(context).pop(true);
                 });
 
-                return const CustomAnimatedToast();
+                return CustomAnimatedToast(
+                  productImage: product.productImage,
+                );
               },
             );
             navigate(context,

@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAnimatedToast extends StatefulWidget {
   const CustomAnimatedToast({
     Key? key,
+    required this.productImage,
   }) : super(key: key);
+
+  final String productImage;
   @override
   State<StatefulWidget> createState() => CustomAnimatedToastState();
 }
@@ -18,19 +22,19 @@ class CustomAnimatedToastState extends State<CustomAnimatedToast>
   void initState() {
     super.initState();
 
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
-          ..forward(from: 0);
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000))
+      ..forward(from: 0);
 
     offset = Tween<Offset>(
       // begin: Offset(0.0, 1.0),
       //change first offset value to change left right position
-      begin: Offset(0.3, 1.0),
+      begin: const Offset(0.3, 1.0),
       // end: Offset(0.0, 0.0),
-      end: Offset(0.3, 0.0),
+      end: const Offset(0.3, 0.0),
     ).animate(controller);
 
-    Future<void>.delayed(Duration(milliseconds: 1800), () {
+    Future<void>.delayed(const Duration(milliseconds: 1800), () {
       controller.reverse();
     });
   }
@@ -62,10 +66,10 @@ class CustomAnimatedToastState extends State<CustomAnimatedToast>
                   ),
                   width: 250,
                   child: Center(
-                      child: Image.asset(
-                    "assets/images/boquet.png",
-                    height: 80.h,
-                  )),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.productImage,
+                    ),
+                  ),
                 )
               ],
             ),
