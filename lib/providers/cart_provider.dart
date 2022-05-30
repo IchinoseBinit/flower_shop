@@ -32,7 +32,8 @@ class CartProvider extends ChangeNotifier {
     return cart.firstWhere((element) => element.id == id);
   }
 
-  postOrder(BuildContext context, int productId) async {
+  Future<Order> postOrder(BuildContext context, int productId,
+      {bool isCashOnDelivery = true}) async {
     try {
       final id =
           Provider.of<LoginProvider>(context, listen: false).user!.user.id;
@@ -43,7 +44,8 @@ class CartProvider extends ChangeNotifier {
         "quantity": product.selectedQuantity,
         "status": true,
         "total_amount": product.selectedQuantity * product.price,
-        "product": product.id
+        "product": product.id,
+        "payment_id": isCashOnDelivery ? 2 : 1,
       };
 
       return orderFromJson(

@@ -18,18 +18,13 @@ class APICall {
         body: body,
       );
       log(_response.body);
-      if (_response.statusCode >= 200 || _response.statusCode <= 300) {
-        if (jsonDecode(_response.body)["non_field_errors"] != null) {
-          throw jsonDecode(_response.body)["non_field_errors"]
-              .toString()
-              .replaceAll("[", "")
-              .replaceAll("]", "");
-        }
+      if (_response.statusCode >= 200 && _response.statusCode <= 300) {
         return _response.body;
       }
-      throw jsonDecode(_response.body)["error"];
+      throw jsonDecode(_response.body)["error"] ??
+          jsonDecode(_response.body)["non_field_errors"];
     } catch (ex) {
-      rethrow;
+      throw ex.toString().replaceAll("[", "").replaceAll("]", "");
     }
   }
 

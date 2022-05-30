@@ -23,20 +23,20 @@ class CustomAnimatedToastState extends State<CustomAnimatedToast>
     super.initState();
 
     controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1000))
+        vsync: this, duration: const Duration(milliseconds: 1800))
       ..forward(from: 0);
 
     offset = Tween<Offset>(
       // begin: Offset(0.0, 1.0),
       //change first offset value to change left right position
-      begin: const Offset(0.3, 1.0),
+      begin: const Offset(0.3, 1),
       // end: Offset(0.0, 0.0),
       end: const Offset(0.3, 0.0),
     ).animate(controller);
 
-    Future<void>.delayed(const Duration(milliseconds: 1800), () {
-      controller.reverse();
-    });
+    // Future<void>.delayed(const Duration(milliseconds: 1800), () {
+    //   controller.reverse();
+    // });
   }
 
   @override
@@ -62,12 +62,15 @@ class CustomAnimatedToastState extends State<CustomAnimatedToast>
                     horizontal: 16.w,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(150),
+                    // color: Colors.black,
                   ),
                   width: 250,
+                  height: 250,
                   child: Center(
                     child: CachedNetworkImage(
                       imageUrl: widget.productImage,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )

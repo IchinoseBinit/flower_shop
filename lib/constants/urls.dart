@@ -29,3 +29,5 @@ const orderUrl = "$baseUrl/orders";
 const userOrderUrl = "$orderUrl/user-orders/";
 const orderListUrl = "$orderUrl/orders-list/";
 const orderDetailsUrl = "$orderUrl/order-details/";
+
+const transactionUrl = "$baseUrl/payment-transection/transections/";

@@ -22,4 +22,16 @@ class OrderProvider extends ChangeNotifier {
       rethrow;
     }
   }
+
+  recordTransaction(int orderId, String transactionId) async {
+    try {
+      final body = {
+        "order_id": orderId,
+        "transaxtion_id": transactionId,
+      };
+      await APICall().postRequestWithToken(transactionUrl, body);
+    } catch (ex) {
+      rethrow;
+    }
+  }
 }
