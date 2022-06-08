@@ -21,10 +21,12 @@ class PaymentScreen extends StatelessWidget {
     required this.productName,
     required this.price,
     required this.order,
+    this.isCashOnDelivery = true,
   }) : super(key: key);
   final int price;
   final String productName;
   final Order order;
+  final bool isCashOnDelivery;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,13 @@ class PaymentScreen extends StatelessWidget {
                         value: DateFormat("yyyy MMM dd hh:mm a").format(
                           order.shippingTime,
                         ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      OneDetailDisplayer(
+                        title: "Payment Type",
+                        value: isCashOnDelivery ? "Cash on Delivery" : "Khalti",
                       ),
                     ],
                   ),

@@ -12,21 +12,21 @@ class Review {
     required this.ratings,
     required this.comment,
     required this.productId,
-    required this.userId,
+    required this.username,
   });
 
   final int id;
   final int ratings;
   final String comment;
   final int productId;
-  final int userId;
+  final String username;
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         id: json["id"],
         ratings: json["ratings"],
         comment: json["comment"],
         productId: json["product_id"],
-        userId: json["user_id"],
+        username: json["user_id"]["username"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +34,5 @@ class Review {
         "ratings": ratings,
         "comment": comment,
         "product_id": productId,
-        "user_id": userId,
       };
 }

@@ -2,10 +2,12 @@ import 'package:flower_shop/providers/category_provider.dart';
 import 'package:flower_shop/providers/login_provider.dart';
 import 'package:flower_shop/providers/product_provider.dart';
 import 'package:flower_shop/screens/cart_screen.dart';
+import 'package:flower_shop/screens/change_password_screen.dart';
 import 'package:flower_shop/screens/order_screen.dart';
 import 'package:flower_shop/screens/popular_products.dart';
 import 'package:flower_shop/screens/search_list/search_screen.dart';
 import 'package:flower_shop/widgets/caregory_card.dart';
+import 'package:flower_shop/widgets/general_alert_dialog.dart';
 import 'package:flower_shop/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,6 +76,28 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(
               height: 8.h,
+            ),
+            buildListTile(
+              context,
+              label: "Change Password",
+              widget: ChangePasswordScreen(),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const Spacer(),
+            buildListTile(
+              context,
+              label: "Log Out",
+              func: () async {
+                try {
+                  Provider.of<LoginProvider>(context, listen: false)
+                      .logout(context);
+                } catch (ex) {
+                  GeneralAlertDialog()
+                      .customAlertDialog(context, ex.toString());
+                }
+              },
             ),
           ],
         ),
@@ -209,14 +233,26 @@ class HomeScreen extends StatelessWidget {
   Widget buildListTile(
     BuildContext context, {
     required String label,
-    required Widget widget,
+    Widget? widget,
+    Function? func,
   }) {
     return ListTile(
-      title: Text(label),
+      title: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 14,
+        ),
+      ),
       trailing: const Icon(
         Icons.arrow_right_outlined,
       ),
-      onTap: () => navigate(context, widget),
+      onTap: () {
+        if (widget != null) {
+          navigate(context, widget);
+        } else {
+          func!();
+        }
+      },
     );
   }
 }

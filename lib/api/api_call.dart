@@ -22,7 +22,10 @@ class APICall {
         return _response.body;
       }
       throw jsonDecode(_response.body)["error"] ??
-          jsonDecode(_response.body)["non_field_errors"];
+          jsonDecode(_response.body)["non_field_errors"] ??
+          jsonDecode(_response.body)["email"] ??
+          jsonDecode(_response.body)["password"] ??
+          jsonDecode(_response.body)["detail"];
     } catch (ex) {
       throw ex.toString().replaceAll("[", "").replaceAll("]", "");
     }
@@ -36,10 +39,11 @@ class APICall {
         body: body,
       );
       log(_response.body);
-      if (_response.statusCode >= 200 || _response.statusCode <= 300) {
+      if (_response.statusCode >= 200 && _response.statusCode <= 300) {
         return _response.body;
       }
-      throw jsonDecode(_response.body)["error"];
+      throw jsonDecode(_response.body)["error"] ??
+          jsonDecode(_response.body)["detail"];
     } catch (ex) {
       rethrow;
     }
@@ -48,7 +52,7 @@ class APICall {
   getRequestWithToken(String url) async {
     try {
       Response _response = await _callApi(RequestType.getWithToken, url);
-      if (_response.statusCode >= 200 || _response.statusCode <= 300) {
+      if (_response.statusCode >= 200 && _response.statusCode <= 300) {
         return _response.body;
       }
       throw jsonDecode(_response.body)["error"];

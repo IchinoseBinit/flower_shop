@@ -1,11 +1,11 @@
-import 'dart:developer';
-
+import 'package:flower_shop/screens/forgot_password_screen.dart';
+import 'package:flower_shop/utils/navigate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '/providers/login_provider.dart';
 import 'package:provider/provider.dart';
 
 import '/constants/constants.dart';
+import '/providers/login_provider.dart';
 import '/screens/home_screen.dart';
 import '/screens/register_screen.dart';
 import '/utils/validation_mixin.dart';
@@ -70,7 +70,23 @@ class LoginScreen extends StatelessWidget {
                     _submit(context, false);
                   },
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 8.h),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => navigate(context, ForgotPasswordScreen()),
+                    child: Text(
+                      "Forgot your Password?",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     _submit(context, false);

@@ -104,24 +104,24 @@ class ProductDetailsScreen extends StatelessWidget {
                 final data = Provider.of<ReviewProvider>(context, listen: false)
                     .listOfReviews;
                 return ListView.separated(
-                  itemBuilder: ((context, index) => ListTile(
-                        title: Text(data[index].comment),
-                        // subtitle: Row(
-                        //   mainAxisSize: MainAxisSize.min,
-                        //   children: [
-
-                        //   ],
-                        // ),
-                        trailing: RatingBarIndicator(
-                          rating: data[index].ratings.toDouble(),
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
-                            color: Colors.orange,
+                  itemBuilder: ((context, index) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Reviewed By: ${data[index].username}"),
+                          ListTile(
+                            title: Text(data[index].comment),
+                            trailing: RatingBarIndicator(
+                              rating: data[index].ratings.toDouble(),
+                              itemBuilder: (context, index) => const Icon(
+                                Icons.star,
+                                color: Colors.orange,
+                              ),
+                              itemCount: 5,
+                              itemSize: 15.0,
+                              direction: Axis.horizontal,
+                            ),
                           ),
-                          itemCount: 5,
-                          itemSize: 15.0,
-                          direction: Axis.horizontal,
-                        ),
+                        ],
                       )),
                   separatorBuilder: (context, index) => const Divider(
                     thickness: 1,

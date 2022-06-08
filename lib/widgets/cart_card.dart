@@ -196,6 +196,7 @@ class CartCard extends StatelessWidget {
                   price: price,
                   order: order,
                   productName: product.productName,
+                  isCashOnDelivery: false,
                 ));
           } catch (ex) {
             Navigator.pop(context);

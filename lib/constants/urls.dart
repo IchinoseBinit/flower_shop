@@ -9,6 +9,7 @@ const loginUrl = "$_users/login/";
 const logoutUrl = "$_users/logout/";
 const changePasswordUrl = "$_users/change-password/";
 const passwordResetUrl = "$_users/password-reset/";
+const passwordResetConfirmUrl = "${passwordResetUrl}confirm/";
 
 const _productsCategories = "$baseUrl/product-categories";
 
