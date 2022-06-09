@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightTheme(BuildContext context) {
   return ThemeData(
-    primaryColor: Colors.orange,
+    primaryColor: Colors.blue.shade200,
     scaffoldBackgroundColor: Colors.orange,
     iconTheme: const IconThemeData(color: Colors.orangeAccent),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.orange,
+      backgroundColor: Colors.green.shade300,
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontSize: 16.sp,

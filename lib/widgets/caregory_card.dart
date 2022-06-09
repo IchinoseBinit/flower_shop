@@ -19,7 +19,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150.w,
+      width: 120.w,
       child: GestureDetector(
         onTap: () => navigate(
           context,
@@ -28,24 +28,22 @@ class CategoryCard extends StatelessWidget {
           ),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AspectRatio(
-              aspectRatio: 1.5,
-              child: Container(
-                padding: EdgeInsets.all(
-                  6.h,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Hero(
-                  tag: '${category.id.toString()} $category',
-                  child: Image.network(
-                    category.categoryImage,
-                    fit: BoxFit.contain,
-                  ),
+            Container(
+              height: 100.0,
+              padding: EdgeInsets.all(
+                0.h,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(.2),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Hero(
+                tag: '${category.id.toString()} $category',
+                child: Image.network(
+                  category.categoryImage,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

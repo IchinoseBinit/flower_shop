@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                   category: value.listOfcategories[index],
                                 ),
                                 separatorBuilder: (context, index) =>
-                                    const SizedBox(width: 20),
+                                    const SizedBox(width: 2.0),
                                 itemCount: value.listOfcategories.length,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,

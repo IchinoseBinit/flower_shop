@@ -58,15 +58,15 @@ class CustomAnimatedToastState extends State<CustomAnimatedToast>
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.symmetric(
-                    vertical: 16.h,
-                    horizontal: 16.w,
+                    vertical: 10.h,
+                    horizontal: 10.w,
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(150),
                     // color: Colors.black,
                   ),
                   width: 250,
-                  height: 250,
+                  height: 350,
                   child: Center(
                     child: CachedNetworkImage(
                       imageUrl: widget.productImage,
