@@ -110,9 +110,9 @@ class OrderCard extends StatelessWidget {
                   GeneralTextField(
                     title: "Comment",
                     controller: commentController,
-                    textInputType: TextInputType.number,
+                    textInputType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                    maxLength: 10,
+                    maxLines: 5,
                     validate: (value) =>
                         ValidationMixin().validate(value!, "Comment"),
                     onFieldSubmitted: (_) {},

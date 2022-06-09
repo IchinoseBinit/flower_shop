@@ -11,21 +11,18 @@ class Review {
     required this.id,
     required this.ratings,
     required this.comment,
-    required this.productId,
     required this.username,
   });
 
   final int id;
   final int ratings;
   final String comment;
-  final int productId;
   final String username;
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
-        id: json["id"],
-        ratings: json["ratings"],
-        comment: json["comment"],
-        productId: json["product_id"],
+        id: json["id"] ?? 0,
+        ratings: json["ratings"] ?? 0,
+        comment: json["comment"] ?? "",
         username: json["user_id"]["username"],
       );
 
@@ -33,6 +30,5 @@ class Review {
         "id": id,
         "ratings": ratings,
         "comment": comment,
-        "product_id": productId,
       };
 }

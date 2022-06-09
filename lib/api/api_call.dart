@@ -33,6 +33,7 @@ class APICall {
 
   postRequestWithToken(String url, Map body, {RequestType? requestType}) async {
     try {
+      log("message");
       Response _response = await _callApi(
         requestType ?? RequestType.postWithToken,
         url,
@@ -52,6 +53,7 @@ class APICall {
   getRequestWithToken(String url) async {
     try {
       Response _response = await _callApi(RequestType.getWithToken, url);
+
       if (_response.statusCode >= 200 && _response.statusCode <= 300) {
         return _response.body;
       }

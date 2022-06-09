@@ -1,5 +1,5 @@
 const baseUrl = "http://10.0.2.2:8000";
-// const baseUrl = "http://192.168.1.70:8000";
+// const baseUrl = "http://192.168.7.88:8000";
 // const baseUrl = "http://192.168.7.32:3001";
 
 const _users = "$baseUrl/authentication";

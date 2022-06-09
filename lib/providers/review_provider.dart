@@ -28,6 +28,7 @@ class ReviewProvider extends ChangeNotifier {
         "$reviewProductsUrl/$id",
         map,
       );
+      print(response);
     } catch (ex) {
       log(ex.toString());
       rethrow;

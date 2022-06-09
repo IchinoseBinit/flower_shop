@@ -10,6 +10,7 @@ class GeneralTextField extends StatefulWidget {
     required this.textInputAction,
     required this.validate,
     required this.onFieldSubmitted,
+    this.maxLines = 1,
     this.isObscure = false,
     this.isDisabled = false,
     this.isReadOnly = false,
@@ -22,6 +23,8 @@ class GeneralTextField extends StatefulWidget {
   final TextEditingController? controller;
   final int? maxLength;
   final bool isObscure;
+  final int maxLines;
+
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final List<TextInputFormatter>? inputFormatter;
@@ -50,6 +53,7 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
       enabled: !widget.isDisabled,
       readOnly: widget.isReadOnly,
       obscureText: toHide,
+      maxLines: widget.maxLines,
       textInputAction: widget.textInputAction,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 14.h),
