@@ -38,12 +38,12 @@ class ProfileScreen extends StatelessWidget {
             buildListTile(
               label: "Username",
               value: user.username,
-              iconData: Icons.manage_accounts_sharp,
+              iconData: Icons.person,
             ),
             buildListTile(
               label: "Full Name",
               value: user.fullName,
-              iconData: Icons.person,
+              iconData: Icons.info,
             ),
             if (user.phone.isNotEmpty)
               buildListTile(
