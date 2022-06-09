@@ -68,6 +68,7 @@ class LoginProvider extends ChangeNotifier {
       profile!.phone = map["phone_num"];
       profile!.address = map["address"];
       notifyListeners();
+      Navigator.pop(context);
     } catch (ex) {
       Navigator.pop(context);
       GeneralAlertDialog().customAlertDialog(context, ex.toString());

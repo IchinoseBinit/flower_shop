@@ -5,6 +5,7 @@ import 'package:flower_shop/screens/cart_screen.dart';
 import 'package:flower_shop/screens/change_password_screen.dart';
 import 'package:flower_shop/screens/order_screen.dart';
 import 'package:flower_shop/screens/popular_products.dart';
+import 'package:flower_shop/screens/edit_profile_screen.dart';
 import 'package:flower_shop/screens/profile_screen.dart';
 import 'package:flower_shop/screens/search_list/search_screen.dart';
 import 'package:flower_shop/widgets/caregory_card.dart';
@@ -81,7 +82,7 @@ class HomeScreen extends StatelessWidget {
             buildListTile(
               context,
               label: "Profile",
-              widget: ProfileScreen(),
+              widget: const ProfileScreen(),
             ),
             SizedBox(
               height: 8.h,
