@@ -29,24 +29,10 @@ class ProductDetailsScreen extends StatelessWidget {
       body: CurvedBodyWidget(
         widget: ListView(
           children: [
-            Stack(
-              children: [
-                Image.network(
-                  product.productImage,
-                  height: 200.h,
-                  width: 400.w,
-                ),
-                Positioned(
-                  bottom: 5.h,
-                  right: 5.w,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite_outlined,
-                    ),
-                  ),
-                ),
-              ],
+            Image.network(
+              product.productImage,
+              height: 200.h,
+              width: double.infinity,
             ),
             SizedBox(
               height: 8.h,
