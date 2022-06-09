@@ -5,6 +5,7 @@ import 'package:flower_shop/screens/cart_screen.dart';
 import 'package:flower_shop/screens/change_password_screen.dart';
 import 'package:flower_shop/screens/order_screen.dart';
 import 'package:flower_shop/screens/popular_products.dart';
+import 'package:flower_shop/screens/profile_screen.dart';
 import 'package:flower_shop/screens/search_list/search_screen.dart';
 import 'package:flower_shop/widgets/caregory_card.dart';
 import 'package:flower_shop/widgets/general_alert_dialog.dart';
@@ -73,6 +74,14 @@ class HomeScreen extends StatelessWidget {
               context,
               label: "My Orders",
               widget: const OrderScreen(),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            buildListTile(
+              context,
+              label: "Profile",
+              widget: ProfileScreen(),
             ),
             SizedBox(
               height: 8.h,

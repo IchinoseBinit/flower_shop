@@ -5,25 +5,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class GeneralTextField extends StatefulWidget {
   const GeneralTextField({
     required this.title,
-    required this.controller,
+    this.controller,
     required this.textInputType,
     required this.textInputAction,
     required this.validate,
     required this.onFieldSubmitted,
     this.isObscure = false,
+    this.isDisabled = false,
+    this.isReadOnly = false,
     Key? key,
     this.maxLength,
     this.inputFormatter,
   }) : super(key: key);
 
   final String title;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final int? maxLength;
   final bool isObscure;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final List<TextInputFormatter>? inputFormatter;
   final String? Function(String?)? validate;
+  final bool isDisabled;
+  final bool isReadOnly;
   final void Function(String)? onFieldSubmitted;
 
   @override
@@ -43,6 +47,8 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.textInputType,
+      enabled: !widget.isDisabled,
+      readOnly: widget.isReadOnly,
       obscureText: toHide,
       textInputAction: widget.textInputAction,
       decoration: InputDecoration(

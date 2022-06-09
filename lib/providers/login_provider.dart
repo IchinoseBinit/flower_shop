@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flower_shop/api/api_client.dart';
 import 'package:flower_shop/constants/urls.dart';
+import 'package:flower_shop/models/profile.dart';
 import 'package:flower_shop/models/user.dart';
 import 'package:flower_shop/screens/confirm_forgot_password_screen.dart';
 import 'package:flower_shop/screens/login_screen.dart';
@@ -11,6 +14,8 @@ import '/api/api_call.dart';
 
 class LoginProvider extends ChangeNotifier {
   User? user;
+  Profile? profile;
+
   loginUser({
     required String username,
     required String password,
@@ -21,6 +26,9 @@ class LoginProvider extends ChangeNotifier {
       user =
           userFromJson(await APICall().postRequestWithoutToken(loginUrl, map));
       APIClient.token = user!.token;
+      profile = profileFromJson(
+          await APICall().getRequestWithToken("$profileUrl${user!.user.id}"));
+
       notifyListeners();
     } catch (ex) {
       rethrow;
@@ -37,6 +45,32 @@ class LoginProvider extends ChangeNotifier {
       navigateAndRemoveAll(context, LoginScreen());
     } catch (ex) {
       rethrow;
+    }
+  }
+
+  updateProfile(
+    BuildContext context, {
+    required Map map,
+  }) async {
+    try {
+      GeneralAlertDialog().customLoadingDialog(context);
+      final body = {
+        ...map,
+        "username": profile!.username,
+      };
+      await APICall().postRequestWithToken(
+        "$profileUrl${user!.user.id}/",
+        body,
+        requestType: RequestType.putWithToken,
+      );
+      Navigator.pop(context);
+      profile!.fullName = map["full_name"];
+      profile!.phone = map["phone_num"];
+      profile!.address = map["address"];
+      notifyListeners();
+    } catch (ex) {
+      Navigator.pop(context);
+      GeneralAlertDialog().customAlertDialog(context, ex.toString());
     }
   }
 

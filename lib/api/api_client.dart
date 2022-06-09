@@ -28,7 +28,7 @@ class APIClient {
 
     Map<String, String> headingWithToken = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Token $token',
     };
     switch (requestType) {
       case RequestType.get:

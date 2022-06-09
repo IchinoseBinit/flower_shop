@@ -7,6 +7,7 @@ const _users = "$baseUrl/authentication";
 const registerUrl = "$_users/register/";
 const loginUrl = "$_users/login/";
 const logoutUrl = "$_users/logout/";
+const profileUrl = "$_users/profile/";
 const changePasswordUrl = "$_users/change-password/";
 const passwordResetUrl = "$_users/password-reset/";
 const passwordResetConfirmUrl = "${passwordResetUrl}confirm/";
