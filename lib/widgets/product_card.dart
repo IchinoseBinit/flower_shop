@@ -26,32 +26,40 @@ class ProductCard extends StatelessWidget {
           context,
           ProductDetailsScreen(product: product),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1.5,
-              child: Container(
-                padding: EdgeInsets.all(
-                  6.h,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: SizedBox(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.5,
+                  child: Container(
+                    padding: EdgeInsets.all(
+                      4.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(.2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.network(
+                        product.productImage,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.2),
-                  borderRadius: BorderRadius.circular(15),
+                const SizedBox(height: 10),
+                Text(
+                  product.productName,
+                  // style: const TextStyle(color: Colors.black),
+                  maxLines: 2,
                 ),
-                child: Image.network(
-                  product.productImage,
-                  fit: BoxFit.contain,
-                ),
-              ),
+              ],
             ),
-            const SizedBox(height: 10),
-            Text(
-              product.productName,
-              // style: const TextStyle(color: Colors.black),
-              maxLines: 2,
-            ),
-          ],
+          ),
         ),
       ),
     );

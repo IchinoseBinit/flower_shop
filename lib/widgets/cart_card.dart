@@ -31,7 +31,7 @@ class CartCard extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: product.productImage,
             height: 80.h,
-            width: 80.w,
+            width: 70.w,
             errorWidget: (context, error, stackTrace) => const Icon(
               Icons.error_outlined,
             ),

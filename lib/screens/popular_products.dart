@@ -11,7 +11,7 @@ class PopularProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     final popularProductsFuture =
         Provider.of<ProductsProvider>(context, listen: false)
-            .fetchLatestProducts();
+            .fetchPopularProducts();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Popular Products"),
@@ -20,38 +20,35 @@ class PopularProducts extends StatelessWidget {
         widget: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 150,
-                child: FutureBuilder(
-                  future: popularProductsFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return Consumer<ProductsProvider>(
-                      builder: (context, value, child) =>
-                          value.listOfPopularProducts.isEmpty
-                              ? const Center(
-                                  child: Text("No Popular Products currently"),
-                                )
-                              : GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 0.8,
-                                  ),
-                                  itemBuilder: (context, index) => ProductCard(
-                                    product: value.listOfPopularProducts[index],
-                                  ),
-                                  itemCount: value.listOfPopularProducts.length,
-                                  shrinkWrap: true,
-                                  primary: false,
-                                ),
+              FutureBuilder(
+                future: popularProductsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  },
-                ),
+                  }
+                  return Consumer<ProductsProvider>(
+                    builder: (context, value, child) =>
+                        value.listOfPopularProducts.isEmpty
+                            ? const Center(
+                                child: Text("No Popular Products currently"),
+                              )
+                            : GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 0.8,
+                                ),
+                                itemBuilder: (context, index) => ProductCard(
+                                  product: value.listOfPopularProducts[index],
+                                ),
+                                itemCount: value.listOfPopularProducts.length,
+                                shrinkWrap: true,
+                                primary: false,
+                              ),
+                  );
+                },
               ),
             ],
           ),

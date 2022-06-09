@@ -23,39 +23,36 @@ class ProductsByCategoriesScreen extends StatelessWidget {
         widget: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 150,
-                child: FutureBuilder(
-                  future: future,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return Consumer<ProductsProvider>(
-                      builder: (context, value, child) => value
-                              .listOfProductsByCategory.isEmpty
-                          ? Center(
-                              child: Text(
-                                  "No Products in the ${category.categoryName} category currently"),
-                            )
-                          : GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.8,
-                              ),
-                              itemBuilder: (context, index) => ProductCard(
-                                product: value.listOfProductsByCategory[index],
-                              ),
-                              itemCount: value.listOfProductsByCategory.length,
-                              shrinkWrap: true,
-                              primary: false,
-                            ),
+              FutureBuilder(
+                future: future,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  },
-                ),
+                  }
+                  return Consumer<ProductsProvider>(
+                    builder: (context, value, child) => value
+                            .listOfProductsByCategory.isEmpty
+                        ? Center(
+                            child: Text(
+                                "No Products in the ${category.categoryName} category currently"),
+                          )
+                        : GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 1.1,
+                            ),
+                            itemBuilder: (context, index) => ProductCard(
+                              product: value.listOfProductsByCategory[index],
+                            ),
+                            itemCount: value.listOfProductsByCategory.length,
+                            shrinkWrap: true,
+                            primary: false,
+                          ),
+                  );
+                },
               ),
             ],
           ),
